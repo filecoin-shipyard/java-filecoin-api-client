@@ -1,12 +1,12 @@
 package org.rockyang.filecoin.rpc;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.rockyang.filecoin.vo.req.KeyInfoReq;
 import org.rockyang.filecoin.vo.res.MessageStatusRes;
 import org.rockyang.filecoin.vo.res.SendMessageRes;
 import org.rockyang.filecoin.vo.res.WalletExportRes;
 import retrofit2.Call;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
-import retrofit2.http.Query;
+import retrofit2.http.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -41,7 +41,24 @@ public interface FilecoinRpcService {
 	 * @return
 	 */
 	@GET("/api/wallet/export")
-	Call<WalletExportRes> exportWallet(@Query("arg") String address);
+	Call<WalletExportRes> walletExport(@Query("arg") String address);
+
+	/**
+	 * import wallet
+	 * @param walletFile
+	 * @return
+	 */
+	@POST("/api/wallet/import")
+	@Multipart
+	Call<Map<String, List>> walletImport(@Part("walletFile") KeyInfoReq keyInfoReq);
+
+	/**
+	 * query the balance of wallet by specified address
+	 * @param address
+	 * @return
+	 */
+	@GET("/api/wallet/balance")
+	Call<BigDecimal> getBalance(@Query("arg") String address);
 
 	/**
 	 * send a message to transfer FIL
@@ -66,14 +83,6 @@ public interface FilecoinRpcService {
 	 */
 	@GET("/api/message/status")
 	Call<MessageStatusRes> getMessageStatus(@Query("arg") String cid);
-
-	/**
-	 * query the balance of wallet by specified address
-	 * @param address
-	 * @return
-	 */
-	@GET("/api/wallet/balance")
-	Call<BigDecimal> getBalance(@Query("arg") String address);
 
 
 }

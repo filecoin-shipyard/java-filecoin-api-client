@@ -24,4 +24,11 @@ public class AddressTest extends BaseTester {
 		}
 	}
 
+	@Test
+	public void getDefaultAddress()
+	{
+		String address = filecoin.getDefaultAddress();
+		logger.info("Default Address: " + address);
+	}
+
 }

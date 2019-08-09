@@ -4,6 +4,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.rockyang.filecoin.exception.ApiError;
 import org.rockyang.filecoin.exception.ApiException;
+import org.rockyang.filecoin.vo.req.KeyInfoReq;
+import org.rockyang.filecoin.vo.res.KeyInfo;
+import org.rockyang.filecoin.vo.res.WalletExportRes;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -106,6 +109,36 @@ public class Filecoin {
 	{
 		Map<String, String> map = executeSync(rpcService.getDefaultAddress());
 		return map.get("Address");
+	}
+
+	/**
+	 * export the specified wallet by address
+	 * @param address
+	 * @return
+	 */
+	public KeyInfo walletExport(String address)
+	{
+		WalletExportRes res = executeSync(rpcService.walletExport(address));
+		KeyInfo keyInfo = res.getKeyInfo().get(0);
+		keyInfo.setAddress(address);
+		return keyInfo;
+	}
+
+	/**
+	 * import wallet use private
+	 * @param privateKey
+	 * @return
+	 */
+	public String walletImport(String privateKey)
+	{
+		KeyInfoReq keyInfoReq = new KeyInfoReq();
+		KeyInfoReq.KeyInfo keyInfo = new KeyInfoReq.KeyInfo(privateKey, "secp256k1");
+		keyInfoReq.addKeyInfo(keyInfo);
+		Map<String, List> map = executeSync(rpcService.walletImport(keyInfoReq));
+		if (map.get("Addresses") == null) {
+			return null;
+		}
+		return map.get("Addresses").get(0).toString();
 	}
 
 	/**
