@@ -12,6 +12,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -84,6 +85,26 @@ public class Filecoin {
 	public String newAddress()
 	{
 		Map<String, String> map = executeSync(rpcService.newAddress());
+		return map.get("Address");
+	}
+
+	/**
+	 * get all addresses of the filecoin daemon node
+	 * @return
+	 */
+	public List<String> getAddressList()
+	{
+		Map<String, List> map = executeSync(rpcService.getAddressList());
+		return map.get("Addresses");
+	}
+
+	/**
+	 * get default address of node
+	 * @return
+	 */
+	public String getDefaultAddress()
+	{
+		Map<String, String> map = executeSync(rpcService.getDefaultAddress());
 		return map.get("Address");
 	}
 

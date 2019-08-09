@@ -9,6 +9,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,6 +24,16 @@ public interface FilecoinRpcService {
 	 */
 	@GET("/api/address/new")
 	Call<Map<String, String>> newAddress();
+
+	/**
+	 * get address list
+	 * @return
+	 */
+	@GET("/api/address/ls")
+	Call<Map<String, List>> getAddressList();
+
+	@GET("/api/address/default")
+	Call<Map<String, String>> getDefaultAddress();
 
 	/**
 	 * export wallet by wallet address
