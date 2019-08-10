@@ -1,3 +1,5 @@
+package org.rockyang.filecoin.test;
+
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.rockyang.filecoin.rpc.Filecoin;
@@ -13,6 +15,6 @@ public abstract class BaseTester {
 	@Before
 	public void init()
 	{
-		filecoin = new Filecoin("http://127.0.0.1:3453", false);
+		filecoin = new Filecoin("http://127.0.0.1:3453", true);
 	}
 }

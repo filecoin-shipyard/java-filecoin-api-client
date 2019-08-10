@@ -6,6 +6,8 @@ import org.rockyang.filecoin.exception.ApiError;
 import org.rockyang.filecoin.exception.ApiException;
 import org.rockyang.filecoin.vo.req.KeyInfoReq;
 import org.rockyang.filecoin.vo.res.KeyInfo;
+import org.rockyang.filecoin.vo.res.MessageStatusRes;
+import org.rockyang.filecoin.vo.res.SendMessageRes;
 import org.rockyang.filecoin.vo.res.WalletExportRes;
 import retrofit2.Call;
 import retrofit2.Response;
@@ -148,5 +150,62 @@ public class Filecoin {
 	public BigDecimal getBalance(String address)
 	{
 		return executeSync(rpcService.getBalance(address));
+	}
+
+	/**
+	 * send a transfer message
+	 * @param from
+	 * @param to
+	 * @param value
+	 * @param gasPrice
+	 * @param gasLimit
+	 * @return
+	 */
+	public String sendTransaction(String from, String to, BigDecimal value, BigDecimal gasPrice, Integer gasLimit)
+	{
+		SendMessageRes res = executeSync(rpcService.sendMessage(to, from, value, gasPrice, gasLimit));
+		return res.getCid().getRoot();
+	}
+
+	/**
+	 * get transaction status by Cid
+	 * @param cid
+	 * @return
+	 */
+	public MessageStatusRes.Message getTransaction(String cid)
+	{
+		MessageStatusRes res = executeSync(rpcService.getMessageStatus(cid));
+		MessageStatusRes.Message message;
+		if (res.isOnChain()) {
+			message = res.getChainMsg().getMessage().getMeteredMessage().getMessage();
+			message.setSuccess(true);
+		} else {
+			message = res.getPoolMsg().getMeteredMessage().getMessage();
+			message.setSuccess(false);
+		}
+		return message;
+	}
+
+	/**
+	 * get configuration of daemon
+	 * @param key
+	 * @return
+	 */
+	public Object config(String key)
+	{
+		return executeSync(rpcService.config(key));
+	}
+
+	/**
+	 * update configuration of daemon
+	 * @param key
+	 * @param value
+	 */
+	public void config(String key, Object value)
+	{
+		Object[] params = new Object[2];
+		params[0] = key;
+		params[1] = value;
+		executeSync(rpcService.config(params));
 	}
 }

@@ -1,6 +1,5 @@
 package org.rockyang.filecoin.rpc;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.rockyang.filecoin.vo.req.KeyInfoReq;
 import org.rockyang.filecoin.vo.res.MessageStatusRes;
 import org.rockyang.filecoin.vo.res.SendMessageRes;
@@ -45,7 +44,7 @@ public interface FilecoinRpcService {
 
 	/**
 	 * import wallet
-	 * @param walletFile
+	 * @param keyInfoReq
 	 * @return
 	 */
 	@POST("/api/wallet/import")
@@ -84,5 +83,18 @@ public interface FilecoinRpcService {
 	@GET("/api/message/status")
 	Call<MessageStatusRes> getMessageStatus(@Query("arg") String cid);
 
+	/**
+	 * get configuration of daemon
+	 * @param key
+	 * @return
+	 */
+	@GET("/api/config/{key}")
+	Call<Object> config(@Path("key") String key);
 
+	/**
+	 * update configuration of daemon
+	 * @return
+	 */
+	@GET("/api/config")
+	Call<Object> config(@Query("arg") Object[] param);
 }
