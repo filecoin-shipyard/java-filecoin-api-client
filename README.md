@@ -38,5 +38,16 @@ String cid = "zDPWYqFCtwpgqBEth4wFK53D8Sm9UGxhrL1tueb4RrgFDQLoKC1P";
 MessageStatusRes.Message message = filecoin.getTransactionByTxHash(cid);
 ```
 
+# document | API
+
+The document is building, if you need it urgently, we provide [unit testing](https://github
+                                                                             .com/yangjian102621/java-filecoin-api-client/tree/master/src/test/java/org/rockyang/filecoin/test) for each API.
+
+# Contribute
+
+Feel free to dive in! [Open an issue](https://github.com/yangjian102621/java-filecoin-api-client/issues) or submit PRs.
+
+
+
 
 
