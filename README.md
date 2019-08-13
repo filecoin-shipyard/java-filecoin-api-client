@@ -1,8 +1,8 @@
-# filecoin-api-client
+# java-filecoin-api-client
 
 An API client for Filecoin implemented in Java
 
-# Quick Start
+## Quick Start
 
 > At present, this artifact has not been published to Maven central repository, so you should install locally
 
@@ -10,7 +10,7 @@ An API client for Filecoin implemented in Java
 mvn clean install
 ```
 
-## For general projects
+### For general projects
 
 (1) import dependency in pom.xml
 
@@ -28,7 +28,7 @@ mvn clean install
 Filecoin filecoin = new Filecoin("http://127.0.0.1:3453", false);
 ```
 
-## For SpringBoot projects
+### For SpringBoot projects
 (1) import dependency in pom.xml, and you do not need to import `filecoin-api-client`  in additional.
 
 ```xml
@@ -58,7 +58,7 @@ public class FilecoinController {
 }
 ```
 
-## Usage 
+### Usage 
 ```java 
 // create a new addresss
 String address = filecoin.newAddress();
@@ -92,11 +92,11 @@ String cid = "zDPWYqFCtwpgqBEth4wFK53D8Sm9UGxhrL1tueb4RrgFDQLoKC1P";
 MessageStatusRes.Message message = filecoin.getTransaction(cid);
 ```
 
-# document | API
+## document | API
 
 The document is building, if you need it urgently, we provide [unit testing](https://github.com/yangjian102621/java-filecoin-api-client/tree/master/src/test/java/org/rockyang/filecoin/test) for each API.
 
-# Contribute
+## Contribute
 
 Feel free to dive in! [Open an issue](https://github.com/yangjian102621/java-filecoin-api-client/issues) or submit PRs.
 
