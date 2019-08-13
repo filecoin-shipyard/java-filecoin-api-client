@@ -4,6 +4,22 @@ An API client for Filecoin implemented in Java
 
 # Quick Start
 
+> At present, this artifact has not been published to Maven central repository, so you should install locally
+
+```bash
+mvn clean install
+```
+
+Then import the artifact at pom.xml
+
+```xml
+<dependency>
+    <groupId>org.rockyang</groupId>
+    <artifactId>filecoin-api-client</artifactId>
+    <version>0.0.1</version>
+</dependency>
+```
+
 ```java 
 Filecoin filecoin = new Filecoin("http://127.0.0.1:3453", false);
 // create a new addresss

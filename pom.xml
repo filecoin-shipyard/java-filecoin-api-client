@@ -6,13 +6,24 @@
 	
 	<groupId>org.rockyang</groupId>
 	<artifactId>filecoin-api-client</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>0.0.1</version>
 	
 	<properties>
 		<java.version>1.8</java.version>
 		<retrofit2.version>2.5.0</retrofit2.version>
 		<converter-scalars.version>2.5.0</converter-scalars.version>
 		<okhttp.version>3.12.0</okhttp.version>
+		<common-lang.version>3.8.1</common-lang.version>
+		<log4j.version>1.2.17</log4j.version>
+		<junit.version>4.12</junit.version>
+		
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+		<maven-source-plugin.version>3.1.0</maven-source-plugin.version>
+		<maven-javadoc-plugin.version>3.0.1</maven-javadoc-plugin.version>
+		<nexus-staging.version>1.6.8</nexus-staging.version>
 	</properties>
 
 	<dependencies>
@@ -45,33 +56,169 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.8.1</version>
+			<version>${common-lang.version}</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
+			<version>${log4j.version}</version>
 			<scope>test</scope>
 		</dependency>
 		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
+	
+	<developers>
+		<developer>
+			<name>RockYang</name>
+			<email>yangjian102621@gmail.com</email>
+		</developer>
+	</developers>
+	
+	<scm>
+		<connection>scm:https://github.com/yangjian102621/java-filecoin-api-client.git</connection>
+		<developerConnection>scm:https://github.com/yangjian102621/java-filecoin-api-client.git</developerConnection>
+		<url>https://github.com/yangjian102621/java-filecoin-api-client.git</url>
+	</scm>
+	
+	<profiles>
+		<!-- local nexus repository for test -->
+		<profile>
+			<id>dev</id>
+			<properties>
+				<profiles.active>dev</profiles.active>
+			</properties>
+			<!-- configures for artifact deployment -->
+			<distributionManagement>
+				<repository>
+					<id>releases</id>
+					<name>Release Repository</name>
+					<url>http://localhost:8081/repository/maven-releases/</url>
+				</repository>
+				<snapshotRepository>
+					<id>snapshots</id>
+					<name>Snapshot Repository</name>
+					<url>http://localhost:8081/repository/maven-snapshots/</url>
+				</snapshotRepository>
+			</distributionManagement>
+			<activation>
+				<!-- default active -->
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		
+		<!-- Central maven repository -->
+		<profile>
+			<id>oss</id>
+			<properties>
+				<profiles.active>release</profiles.active>
+			</properties>
+			<distributionManagement>
+				<snapshotRepository>
+					<id>oss</id>
+					<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+				</snapshotRepository>
+				<repository>
+					<id>oss</id>
+					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+				</repository>
+			</distributionManagement>
+			<build>
+				<plugins>
+					<!-- Gpg Signature -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<executions>
+							<execution>
+								<id>oss</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					
+					<!-- Nexus Staging Plugin, auto deploy close and release -->
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>${nexus-staging.version}</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>oss</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+	
 	<build>
 		<plugins>
+			<!-- setting compiler version and file encoding -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+					<encoding>${maven.compiler.encoding}</encoding>
+					<!-- skip the unit test -->
 					<skip>true</skip>
 				</configuration>
+			</plugin>
+			<!-- packaging source code -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven-source-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Javadoc -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven-javadoc-plugin.version}</version>
+				<!-- skip javadoc error -->
+				<configuration>
+					<failOnError>false</failOnError>
+					<doclint>none</doclint>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
