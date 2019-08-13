@@ -22,7 +22,7 @@ mvn clean install
 </dependency>
 ```
 
-(2) initialize ``Filecoin` instance
+(2) initialize `Filecoin` instance
 
 ```java
 Filecoin filecoin = new Filecoin("http://127.0.0.1:3453", false);
@@ -48,7 +48,7 @@ filecoin.log-debug=true
 filecoin.api-base-url=http://127.0.0.1:3453
 ```
 
-(3) use the `Filecoin` instance any where you want to do.
+(3) use the `Filecoin` instance by `@Autowired` or `@Resource` annotation any where you want to do.
 
 ```java
 public class FilecoinController {
@@ -89,7 +89,7 @@ String cid = filecoin.sendTransaction(from, to, value, gasPrice, gasLimit);
 
 // get transction status
 String cid = "zDPWYqFCtwpgqBEth4wFK53D8Sm9UGxhrL1tueb4RrgFDQLoKC1P";
-MessageStatusRes.Message message = filecoin.getTransactionByTxHash(cid);
+MessageStatusRes.Message message = filecoin.getTransaction(cid);
 ```
 
 # document | API
