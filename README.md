@@ -28,7 +28,7 @@ mvn clean install
 Filecoin filecoin = new Filecoin("http://127.0.0.1:3453", false);
 ```
 
-# For SpringBoot projects
+## For SpringBoot projects
 (1) import dependency in pom.xml, and you do not need to import `filecoin-api-client`  in additional.
 
 ```xml
@@ -99,6 +99,12 @@ The document is building, if you need it urgently, we provide [unit testing](htt
 # Contribute
 
 Feel free to dive in! [Open an issue](https://github.com/yangjian102621/java-filecoin-api-client/issues) or submit PRs.
+
+## License
+
+The Filecoin Project is dual-licensed under Apache 2.0 and MIT terms:
+- Apache License, Version 2.0, ([LICENSE-APACHE](https://github.com/filecoin-project/js-filecoin-api-client/blob/master/LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
+- MIT license ([LICENSE-MIT](https://github.com/filecoin-project/js-filecoin-api-client/blob/master/LICENSE-MIT) or http://opensource.org/licenses/MIT)
 
 
 
