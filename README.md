@@ -10,7 +10,9 @@ An API client for Filecoin implemented in Java
 mvn clean install
 ```
 
-Then import the artifact at pom.xml
+## For general projects
+
+(1) import dependency in pom.xml
 
 ```xml
 <dependency>
@@ -20,8 +22,44 @@ Then import the artifact at pom.xml
 </dependency>
 ```
 
-```java 
+(2) initialize ``Filecoin` instance
+
+```java
 Filecoin filecoin = new Filecoin("http://127.0.0.1:3453", false);
+```
+
+# For SpringBoot projects
+(1) import dependency in pom.xml, and you do not need to import `filecoin-api-client`  in additional.
+
+```xml
+<dependency>
+    <groupId>org.rockyang</groupId>
+    <artifactId>filecoin-api-client-spring-boot-starter</artifactId>
+    <version>0.0.1</version>
+</dependency>
+```
+
+(2) set `log-debug` and `api-base-url` in `application.properties`
+
+```properties
+# switch to open http debug log
+filecoin.log-debug=true
+# filecoin rpc api base url
+filecoin.api-base-url=http://127.0.0.1:3453
+```
+
+(3) use the `Filecoin` instance any where you want to do.
+
+```java
+public class FilecoinController {
+
+	@Autowired
+	private Filecoin filecoin;
+}
+```
+
+## Usage 
+```java 
 // create a new addresss
 String address = filecoin.newAddress();
 
