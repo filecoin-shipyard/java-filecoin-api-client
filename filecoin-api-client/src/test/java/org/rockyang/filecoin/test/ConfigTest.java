@@ -1,5 +1,6 @@
 package org.rockyang.filecoin.test;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -23,6 +24,7 @@ public class ConfigTest extends BaseTester {
 		filecoin.config(key, value);
 
 		Object testAddress = filecoin.config(key);
+		Assert.assertNotNull(testAddress);
 		logger.info(testAddress);
 	}
 }

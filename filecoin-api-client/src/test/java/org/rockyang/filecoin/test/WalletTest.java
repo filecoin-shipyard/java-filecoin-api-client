@@ -1,5 +1,6 @@
 package org.rockyang.filecoin.test;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.rockyang.filecoin.vo.res.KeyInfo;
 
@@ -24,6 +25,7 @@ public class WalletTest extends BaseTester {
 	{
 		String privateKey = "pdHwTOrJXnAGvQ0861k66xRsiT7N3Ms8IGte3nT837E=";
 		String address = filecoin.walletImport(privateKey);
+		Assert.assertNotNull(address);
 		if (address != null) {
 			logger.info("wallet import successfully, Address : " + address);
 		} else {

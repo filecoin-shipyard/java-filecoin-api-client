@@ -1,5 +1,6 @@
 package org.rockyang.filecoin.test;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.rockyang.filecoin.vo.res.MessageStatusRes;
 
@@ -19,6 +20,7 @@ public class MessageTest extends BaseTester {
 		BigDecimal gasPrice = BigDecimal.valueOf(0.001);
 		Integer gasLimit = 300;
 		String cid = filecoin.sendTransaction(from, to, value, gasPrice, gasLimit);
+		Assert.assertNotNull(cid);
 		logger.info("CID: " + cid);
 	}
 

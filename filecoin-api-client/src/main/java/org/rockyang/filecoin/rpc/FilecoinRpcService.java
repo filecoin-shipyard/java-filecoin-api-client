@@ -1,6 +1,7 @@
 package org.rockyang.filecoin.rpc;
 
 import org.rockyang.filecoin.vo.req.KeyInfoReq;
+import org.rockyang.filecoin.vo.res.Cid;
 import org.rockyang.filecoin.vo.res.MessageStatusRes;
 import org.rockyang.filecoin.vo.res.SendMessageRes;
 import org.rockyang.filecoin.vo.res.WalletExportRes;
@@ -97,4 +98,7 @@ public interface FilecoinRpcService {
 	 */
 	@GET("/api/config")
 	Call<Object> config(@Query("arg") Object[] param);
+
+	@GET("/api/chain/head")
+	Call<List<Cid>> chainHead();
 }

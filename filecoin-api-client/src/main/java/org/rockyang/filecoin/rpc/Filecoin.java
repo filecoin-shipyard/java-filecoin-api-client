@@ -5,10 +5,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 import org.rockyang.filecoin.exception.ApiError;
 import org.rockyang.filecoin.exception.ApiException;
 import org.rockyang.filecoin.vo.req.KeyInfoReq;
-import org.rockyang.filecoin.vo.res.KeyInfo;
-import org.rockyang.filecoin.vo.res.MessageStatusRes;
-import org.rockyang.filecoin.vo.res.SendMessageRes;
-import org.rockyang.filecoin.vo.res.WalletExportRes;
+import org.rockyang.filecoin.vo.res.*;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -207,5 +204,11 @@ public class Filecoin {
 		params[0] = key;
 		params[1] = value;
 		executeSync(rpcService.config(params));
+	}
+
+	public String chainHead()
+	{
+		List<Cid> cids = executeSync(rpcService.chainHead());
+		return cids.get(0).getRoot();
 	}
 }
