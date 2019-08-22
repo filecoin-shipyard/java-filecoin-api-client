@@ -30,7 +30,7 @@ public class MessageTest extends BaseTester {
 	@Test
 	public void getTransactionStatus()
 	{
-		String cid = "zDPWYqFCyLg59nnNTFHTERpKqjxsK5651d6ZGg6bqjYZn315U6Ux";
+		String cid = "zDPWYqFD4mNgMtQ8GebcxHnie8YhAHYK3GVAAYfqe2VtmbstLZog";
 		MessageStatusRes.Message message = filecoin.getTransaction(cid);
 		logger.info("message： " + message);
 		if (message.isSuccess()) {

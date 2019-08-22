@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
-import java.util.Map;
 
 /**
  * query message status response VO
@@ -176,7 +175,7 @@ public final class MessageStatusRes {
 		private BigDecimal value;
 		private Integer nonce;
 		private String method;
-		private Map params;
+		private String params;
 		@JsonIgnore
 		private boolean success;
 
@@ -220,11 +219,11 @@ public final class MessageStatusRes {
 			this.method = method;
 		}
 
-		public Map getParams() {
+		public String getParams() {
 			return params;
 		}
 
-		public void setParams(Map params) {
+		public void setParams(String params) {
 			this.params = params;
 		}
 
