@@ -184,6 +184,22 @@ public class Filecoin {
 	}
 
 	/**
+	 * query message status
+	 * @param cid
+	 * @return
+	 */
+	public MessageStatusRes getMessageStatus(String cid)
+	{
+		MessageStatusRes res = executeSync(rpcService.getMessageStatus(cid));
+		if (res.isOnChain()) {
+			res.getChainMsg().getMessage().getMeteredMessage().getMessage().setSuccess(true);
+		} else {
+			res.getChainMsg().getMessage().getMeteredMessage().getMessage().setSuccess(false);
+		}
+		return res;
+	}
+
+	/**
 	 * get configuration of daemon
 	 * @param key
 	 * @return
