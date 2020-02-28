@@ -253,16 +253,17 @@ public final class MessageStatusRes {
 	public static final class Block {
 
 		private String miner;
-		private String ticket;
+		private List<Ticket> tickets;
 		private List<Cid> parents;
 		private BigInteger parentWeight;
 		private Integer height;
 		private Integer nonce;
-		private List<MessageExt> messages;
+		private Cid messages;
 		private Cid stateRoot;
-		private List<MessageReceipt> messageReceipts;
+		private Cid messageReceipts;
 		private Object proof;
 		private Integer timestamp;
+		private String blocksig;
 
 		public String getMiner() {
 			return miner;
@@ -272,12 +273,14 @@ public final class MessageStatusRes {
 			this.miner = miner;
 		}
 
-		public String getTicket() {
-			return ticket;
+		public List<Ticket> getTickets()
+		{
+			return tickets;
 		}
 
-		public void setTicket(String ticket) {
-			this.ticket = ticket;
+		public void setTickets(List<Ticket> tickets)
+		{
+			this.tickets = tickets;
 		}
 
 		public List<Cid> getParents() {
@@ -312,11 +315,13 @@ public final class MessageStatusRes {
 			this.nonce = nonce;
 		}
 
-		public List<MessageExt> getMessages() {
+		public Cid getMessages()
+		{
 			return messages;
 		}
 
-		public void setMessages(List<MessageExt> messages) {
+		public void setMessages(Cid messages)
+		{
 			this.messages = messages;
 		}
 
@@ -328,11 +333,13 @@ public final class MessageStatusRes {
 			this.stateRoot = stateRoot;
 		}
 
-		public List<MessageReceipt> getMessageReceipts() {
+		public Cid getMessageReceipts()
+		{
 			return messageReceipts;
 		}
 
-		public void setMessageReceipts(List<MessageReceipt> messageReceipts) {
+		public void setMessageReceipts(Cid messageReceipts)
+		{
 			this.messageReceipts = messageReceipts;
 		}
 
@@ -350,6 +357,52 @@ public final class MessageStatusRes {
 
 		public void setTimestamp(Integer timestamp) {
 			this.timestamp = timestamp;
+		}
+
+		public String getBlocksig()
+		{
+			return blocksig;
+		}
+
+		public void setBlocksig(String blocksig)
+		{
+			this.blocksig = blocksig;
+		}
+	}
+	@JsonIgnoreProperties(ignoreUnknown = true)
+	public static final class Ticket {
+		private String VRFProof;
+		private String VDFResult;
+		private String VDFProof;
+
+		public String getVRFProof()
+		{
+			return VRFProof;
+		}
+
+		public void setVRFProof(String VRFProof)
+		{
+			this.VRFProof = VRFProof;
+		}
+
+		public String getVDFResult()
+		{
+			return VDFResult;
+		}
+
+		public void setVDFResult(String VDFResult)
+		{
+			this.VDFResult = VDFResult;
+		}
+
+		public String getVDFProof()
+		{
+			return VDFProof;
+		}
+
+		public void setVDFProof(String VDFProof)
+		{
+			this.VDFProof = VDFProof;
 		}
 	}
 
